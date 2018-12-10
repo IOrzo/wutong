@@ -54,6 +54,13 @@
           <artifactId>commons-lang3</artifactId>
           <version>3.7</version>
       </dependency>
+      <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+      <dependency>
+          <groupId>commons-io</groupId>
+          <artifactId>commons-io</artifactId>
+          <version>2.6</version>
+      </dependency>
+
       <!-- https://mvnrepository.com/artifact/commons-beanutils/commons-beanutils -->
       <dependency>
           <groupId>commons-beanutils</groupId>
@@ -73,7 +80,11 @@
           <artifactId>fastjson</artifactId>
           <version>1.2.47</version>
       </dependency>
-
+      <dependency>
+          <groupId>log4j</groupId>
+          <artifactId>log4j</artifactId>
+          <version>1.2.17</version>
+      </dependency>
 
       <dependency>
       <groupId>junit</groupId>
