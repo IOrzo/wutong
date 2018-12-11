@@ -7,6 +7,8 @@ import com.sixtofly.entity.ScanResult;
 import com.sixtofly.entity.WuTong;
 import com.sixtofly.util.DateHelper;
 import com.sixtofly.util.HttpUtilManager;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpException;
 import org.apache.log4j.Logger;
@@ -24,16 +26,21 @@ public class MainRun {
     public static final int MAX_QUERY_COUNT = 500;
 
     public static Logger logger = Logger.getLogger(MainRun.class);
-//    private  String path = System.getProperty("user.dir") + File.separator + "config" + File.separator;
+//    private  String path = System.getProperty("user.dir") + File.separator;
     private  String path = "src/main/resources/";
-    private  String configPath = path + "tk.ini";
+//    private String path = System.getProperty("user.dir") + File.separator;
+    private String configPath = path + "config/tk.ini";
+    private String dataPath = path + "data";
     private Properties propertie;
 
     public static void main(String[] args) {
         MainRun mainRun = new MainRun();
         mainRun.init();
-//        mainRun.start(args[0]);
-        mainRun.start(StringUtils.EMPTY);
+        if(ArrayUtils.isNotEmpty(args)){
+            mainRun.start(args[0]);
+        }else {
+            mainRun.start(StringUtils.EMPTY);
+        }
     }
 
     public void init(){
@@ -48,9 +55,9 @@ public class MainRun {
         }
     }
 
-    public List<String> getDataSource(){
+    public List<String> getDataSource(String fileName){
         List<String> list = null;
-        list = DataCsv.readCsv(path + "wutong.csv");
+        list = DataCsv.readCsv(fileName);
         return list == null ? Collections.EMPTY_LIST : list;
     }
 
@@ -58,8 +65,27 @@ public class MainRun {
         if(StringUtils.isBlank(cookie)){
             cookie = MainRun.COOKIE;
         }
+
+
+        File file = new File(dataPath);
+        File[] files = file.listFiles((filePath) -> {
+            if(filePath.getName().endsWith(".csv")){
+                return true;
+            }else {
+                return false;
+            }
+        });
+        if(files.length > 0){
+            for(File dataFile : files){
+                this.run(dataFile.getAbsolutePath(), cookie);
+            }
+        }
+
+    }
+
+    private void run(String path, String cookie){
         HttpUtilManager httpUtilManager = HttpUtilManager.getInstance();
-        List<String> data = this.getDataSource();
+        List<String> data = this.getDataSource(path);
         List<ScanResult> resultList = new ArrayList<>();
         // 对id进行分组
         List<String> ids = new ArrayList<>();
