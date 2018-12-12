@@ -22,13 +22,12 @@ import java.util.*;
 public class MainRun {
     public static final String url_prex = "http://kjgz.sto-express.cn";
     public static final String query_url = "/Bill/GetTrace";
-    public static final String COOKIE = "_ati=7830530365951;ASP.NET_SessionId=va0is1xw5lzledoiuip52543";
+    public static final String COOKIE = "_ati=7830530365951;ASP.NET_SessionId=jfpixhbwxph3ntktc1b3ah55";
     public static final int MAX_QUERY_COUNT = 500;
 
     public static Logger logger = Logger.getLogger(MainRun.class);
-//    private  String path = System.getProperty("user.dir") + File.separator;
-    private  String path = "src/main/resources/";
-//    private String path = System.getProperty("user.dir") + File.separator;
+    private  String path = System.getProperty("user.dir") + File.separator;
+//    private  String path = "src/main/resources/";
     private String configPath = path + "config/tk.ini";
     private String dataPath = path + "data";
     private Properties propertie;
