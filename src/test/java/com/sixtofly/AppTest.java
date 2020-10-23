@@ -18,5 +18,5 @@ public class AppTest
         assertTrue( true );
     }
 
-    // 测试Jenkins自动构建 1
+    // 测试Jenkins自动构建 1 2
 }
